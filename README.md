@@ -1,2 +1,54 @@
 # CardVault
-This is an application that I created for a coding exercise. Check out the README file for more information.
+
+This CardVault application is a coding exercise, designed to consume a public API and display stylized data with an infinite scroll and a search function.
+
+The application can be downloaded, installed, and run locally on a computer with Internet access.
+
+This application has only been tested on a computer with MacOS, though it should run on Windows. Smart phone functionality was only simulated in the browser. Firefox, Chrome, and Safari were tested. IE has not.
+
+The public API was fast enough to not make good use of the loading indicator (aka spinner). The application could definitely do with some improvements. With that in mind, a to-do list has been added to the end of this file.
+
+Installation prerequisites: node.js and npm
+
+Installation Steps:
+
+1. Download the zipped build directory from GitHub to a MacOS or Windows computer.
+2. Unzip the build directory into any convenient directory.
+3. Open a command line window such as GitBash and change to the directory that's the parent of the unzipped build directory.
+4. If your computer doesn't already have the npm serve application, run the following command from the command line with administrator privilege:
+   npm install -g serve
+5. Now run the serve application from the application to locally serve the application. Use the following command:
+   serve -s build
+6. In your favorite common browser, enter the URL that's show by the serve application (it's localhost:5000 on my Mac).
+
+The application should appear in the browser. Scroll down to the bottom of the page to load more cards. Click the magnifying glass icon in the header to search for cards by name.
+
+To quit the serve command, type Cmd/. (MacOS) or Ctrl/C (Windows).
+
+
+TO-DO LIST
+
+RECOMMENDATION: Don't have a loading indicator for searching because the API is too fast and the loading indicator briefly flashes - it seems odd.
+It might make sense to try to put spinners over late loading card images.
+
+Remember vertical scroll location so the app can return to it after searching.
+
+Add key listener to submit search when Return key or space bar is pressed.
+
+Add error handling.
+
+If it slows down as more cards are added, try PureComponent for Card component to prevent re-rendering of previous cards.
+
+Add a floating control to allow a user to jump to the top of the page.
+
+Refactor callNameSearchApi() with search attribute and value.
+
+Add tooltip hover/tap icon with instructions for partial names and for adding comma for AND and the pipe character for OR of multiple name values.
+
+See about including all search results with a scrollable list of card names.
+
+Learn jest so I can add unit tests for the code.
+
+Manually test real smart phones - simulation isn't good enough.
+
+Add more accessibility as needed and test with screen readers.
