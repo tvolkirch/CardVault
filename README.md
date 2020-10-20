@@ -37,7 +37,7 @@ create-react-app cardvault
 
 3. Copy all of the following code files to the public directory under the cardvault directory:
 
-adoring_fan_png, index.html
+adoring_fan.png, index.html
 
 4. Copy all of the following code files to the src directory under the cardvault directory:
 
