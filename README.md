@@ -43,7 +43,11 @@ adoring_fan.png, index.html
 
 App.css, Card.css, index.css, Loading.css, VaultContainer.css, App.js, App.test.js, Card.js, index.js, Loading.js, VaultContainer.js
 
-5. From the command line, type the following command to do a build:
+5. From the command line, change to the cardvault directory and add a code module dependency by entering the following command:
+
+npm install axios
+
+5. From the command line, enter the following command to do a build:
 
 npm run build
 
