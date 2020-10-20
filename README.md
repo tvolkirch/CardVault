@@ -26,7 +26,7 @@ The application should appear in the browser. Scroll down to the bottom of the p
 To quit the serve command, type Cmd/. (MacOS) or Ctrl/C (Windows).
 
 
-TO-DO LIST
+# TO-DO LIST
 
 RECOMMENDATION: Don't have a loading indicator for searching because the API is too fast and the loading indicator briefly flashes - it seems odd.
 It might make sense to try to put spinners over late loading card images.
