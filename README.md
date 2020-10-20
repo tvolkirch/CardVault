@@ -1,6 +1,6 @@
 # CardVault
 
-This CardVault application is a coding exercise, designed to consume a public API and display stylized data with an infinite scroll and a search function.
+This CardVault application is a coding exercise, designed to consume a public API and display stylized data with an infinite scroll and a search function. It was created using React.
 
 The application can be downloaded, installed, and run locally on a computer with Internet access.
 
