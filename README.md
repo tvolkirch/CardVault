@@ -6,7 +6,7 @@ The application can be downloaded, installed, and run locally on a computer with
 
 This application has only been tested on a computer with MacOS, though it should run on Windows. Smart phone functionality was only simulated in the browser. Firefox, Chrome, and Safari were tested. IE has not.
 
-The public API was fast enough to not make good use of the loading indicator (aka spinner). The application could definitely do with some improvements. With that in mind, a to-do list has been added to the end of this file.
+The public API was fast enough to not make good use of the loading indicator (aka spinner). The application could definitely do with some improvements. With that in mind, a to-do list has been added.
 
 Installation prerequisites: node.js and npm
 
