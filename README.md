@@ -25,6 +25,34 @@ The application should appear in the browser. Scroll down to the bottom of the p
 
 To quit the serve command, type Cmd/. (MacOS) or Ctrl/C (Windows).
 
+# Creating the Development Environment
+
+1. Enter the following command from the command line:
+
+npm install -g create-react-app
+
+2. Create a new React project by entering the following command:
+
+create-react-app cardvault
+
+3. Copy all of the following code files to the public directory under the cardvault directory:
+
+adoring_fan_png
+index.html
+
+4. Copy all of the following code files to the src directory under the cardvault directory:
+
+App.css
+Card.css
+index.css
+Loading.css
+VaultContainer.css
+App.js
+App.test.js
+Card.js
+index.js
+Loading.js
+VaultContainer.js
 
 # TO-DO LIST
 
