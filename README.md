@@ -43,6 +43,12 @@ adoring_fan_png, index.html
 
 App.css, Card.css, index.css, Loading.css, VaultContainer.css, App.js, App.test.js, Card.js, index.js, Loading.js, VaultContainer.js
 
+5. From the command line, type the following command to do a build:
+
+npm run build
+
+This command will create the same build directory and contents that's zipped and saved in this code repository.
+
 # TO-DO LIST
 
 RECOMMENDATION: Don't have a loading indicator for searching because the API is too fast and the loading indicator briefly flashes - it seems odd.
