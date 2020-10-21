@@ -8,6 +8,8 @@ This application has only been tested on a computer with MacOS, though it should
 
 The public API was fast enough to not make good use of the loading indicator (aka spinner). The application could definitely do with some improvements. With that in mind, a to-do list has been added.
 
+NOTE: I know. This project should've used git, but I blindly followed instructions for creating a React project and the instructions didn't include git. I hope there aren't too many files to manually copy.
+
 Installation prerequisites: node.js and npm
 
 Installation Steps:
