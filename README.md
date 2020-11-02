@@ -13,7 +13,7 @@ Installation prerequisites: node.js, npm, and git
 
 Installation Steps:
 
-1. Download the zipped build directory (build.zip) from GitHub to a MacOS or Windows computer.
+1. Download the zipped build directory (build.zip in the main branch) from GitHub to a MacOS or Windows computer.
 2. Unzip the build directory into any convenient directory.
 3. Open a command line window such as GitBash and change to the directory that's the parent of the unzipped build directory.
 4. If your computer doesn't already have the npm serve application, run the following command from the command line with administrator privilege:
