@@ -15,7 +15,7 @@ class VaultContainer extends Component
         super(props, context);
 
         this.state = {
-            loading: false,
+            loading: true,
             cards: [],
             nextApiCall: "https://api.elderscrollslegends.io/v1/cards?page=1&pageSize=20"
         };

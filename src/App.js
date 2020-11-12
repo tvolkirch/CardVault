@@ -13,8 +13,6 @@ import "./App.css";
 // and the loading indicator briefly flashes - it seems odd
 // It might make sense to try to put spinners over late loading card images.
 
-// remember vertical scroll location so the app can return to it after searching
-
 // add key listener to submit search when Return key or space bar are pressed
 
 // add error handling
@@ -59,7 +57,6 @@ class App extends Component
         var bodyTag = bodyTags[0];
         
         overlay.style.display = "block";
-        window.scrollTo(0, 0);  // go to top of page for search overlay
         bodyTag.style.overflow = "hidden";  // hide scrollbar to prevent scrolling
     }
     

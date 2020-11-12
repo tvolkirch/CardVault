@@ -5,8 +5,9 @@
 	top: 0;
 	margin: 0;
 	padding: 0;
-	background-color: #036;
+	background-color: #111;
 	color: #f1f1f1;
+	border-bottom: 1px solid #ddd;
 }
 
 #head h4
@@ -17,6 +18,13 @@
 	margin: 0;
 	padding: 0;
 	text-align: center;
+}
+
+#head h4 .title
+{
+    display: inline-block;
+    margin: 1rem;
+    padding: 0;
 }
 
 #search-icon
@@ -32,36 +40,9 @@
 
 #search-overlay
 {
-    position: absolute;
-    display: none;
+    position: fixed;
     top: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: white;
-    color: #333;
-    margin: 0;
-    padding: 1rem;
-    z-index: 2;
-}
-
-#search-overlay .close-button
-{
-    font-size: 2rem;
-    font-weight: bold;
-    width: 85%;
-    padding-left: 1rem;
-}
-
-#search-overlay #close-icon:hover
-{
-    cursor: pointer;
-}
-
-#search-overlay
-{
-    position: absolute;
     display: none;
-    top: 0;
     height: 100vh;
     width: 100vw;
     background-color: white;
@@ -142,13 +123,6 @@
 @media only screen and (max-width: 600px)
 {
     #head h4 { font-size: 1.25rem; }
-}
-
-#head h4 .title
-{
-    display: inline-block;
-    margin: 1rem;
-    padding: 0;
 }
 
 #page-content
