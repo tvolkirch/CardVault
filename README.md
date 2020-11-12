@@ -49,13 +49,13 @@ This command will create the same build directory and contents that's zipped and
 RECOMMENDATION: Don't have a loading indicator for searching because the API is too fast and the loading indicator briefly flashes - it seems odd.
 It might make sense to try to put spinners over late loading card images.
 
-Remember vertical scroll location so the app can return to it after searching.
-
 Add key listener to submit search when Return key or space bar is pressed.
 
 Add error handling.
 
 If it slows down as more cards are added, try PureComponent for Card component to prevent re-rendering of previous cards.
+
+Refactor App.js by moving SearchResults its own component code file.
 
 Add a floating control to allow a user to jump to the top of the page.
 
@@ -70,3 +70,13 @@ Learn jest so I can add unit tests for the code.
 Manually test real smart phones - simulation isn't good enough.
 
 Add more accessibility as needed and test with screen readers.
+
+# Release Notes
+
+Converted this project to use git.
+
+Fixed search overlay to not affect scroll position.
+
+Added spinner on initial page load.
+
+Improved some background colors.

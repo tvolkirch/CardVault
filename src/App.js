@@ -7,35 +7,6 @@ import VaultContainer from "./VaultContainer";
 
 import "./App.css";
 
-// TODO LIST
-
-// RECOMMENDATION: don't have a loading indicator because the api is too fast 
-// and the loading indicator briefly flashes - it seems odd
-// It might make sense to try to put spinners over late loading card images.
-
-// add key listener to submit search when Return key or space bar are pressed
-
-// add error handling
-
-// if it slows down as more cards are added, try PureComponent 
-// for Card component to prevent re-rendering of previous cards
-
-// add floating control to allow a user to jump to the top of the page
-
-// refactor callNameSearchApi() with search attribute and value
-
-// add tooltip hover/tap icon with instructions for partial names and 
-// for adding comma for AND and the pipe character for OR of 
-// multiple name values
-
-// see about including all search results with a scrollable list of card names
-
-// learn jest so I can add unit tests for the code
-
-// manually test real smart phones - simulation isn't good enough
-
-// add more accessibility as needed and test with screen readers
-
 class App extends Component
 {
     constructor(props, context)
