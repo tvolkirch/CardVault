@@ -46,7 +46,6 @@ This command will create the same build directory and contents that's zipped and
 
 # TO-DO LIST
 
-RECOMMENDATION: Don't have a loading indicator for searching because the API is too fast and the loading indicator briefly flashes - it seems odd.
 It might make sense to try to put spinners over late loading card images.
 
 Add key listener to submit search when Return key or space bar is pressed.
@@ -71,12 +70,15 @@ Manually test real smart phones - simulation isn't good enough.
 
 Add more accessibility as needed and test with screen readers.
 
-# Release Notes
+# Release Notes (in reverse order)
+
+Added better comments in the main app file.
+Changed the spinner.
+Made the search overlay translucent.
+
+Fixed search overlay to not affect scroll position.
+Added spinner on initial page load.
+Improved some background colors.
 
 Converted this project to use git.
 
-Fixed search overlay to not affect scroll position.
-
-Added spinner on initial page load.
-
-Improved some background colors.
