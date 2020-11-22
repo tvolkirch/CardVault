@@ -7,6 +7,26 @@ import VaultContainer from "./VaultContainer";
 
 import "./App.css";
 
+/*
+ *  Card Vault
+ *
+ *  This application uses the free api.elderscrollslegends.io API to
+ *  retrieve and display cards from the game, The Elder Scrolls: Legends.
+ *
+ *  It retrieves a fixed number of cards at one time, and uses infinite
+ *  scroll to retrieve new groups of cards.
+ *
+ *  It has a search function to find cards by name or partial name, and
+ *  allows up to a fixed number of cards to be displayed from the search
+ *  results.
+ *
+ *  Disclaimer: The Elder Scrolls, The Elder Scrolls: Legends, ZeniMax,
+ *  Bethesda, Bethesda Softworks and related logos are registered trademarks
+ *  or trademarks of ZeniMax Media Inc. This website is not produced,
+ *  endorsed, supported, or affiliated with ZeniMax Media Inc.
+ *
+ */
+
 class App extends Component
 {
     constructor(props, context)
@@ -97,9 +117,11 @@ class App extends Component
                     <div className="close-button" onClick={(ev) => this.closeSearchOverlay()}>
                         <span id="close-icon" aria-label="close button" role="button">&#8855;</span>
                     </div>
-                    <input type="search" size="25" name="searchText" id="searchText"
-                        placeholder="Search by Card Name"/>
-                    <input type="submit" value="Search" id="search" onClick={(ev) => this.search()} />
+                    <div id="search-form">
+                        <input type="search" size="25" name="searchText" id="searchText"
+                            placeholder="Search by Card Name"/>
+                        <input type="submit" value="Search" id="search" onClick={(ev) => this.search()} />
+                    </div>
                     {searchResults}
                 </div>
                 
@@ -114,17 +136,29 @@ function SearchResults(props)
     var openCardOverlay = function(index)
     {
         var id = "card-overlay" + index;
-        var overlay = document.getElementById(id);
-        
-        overlay.style.display = "block";
+        var cardOverlay = document.getElementById(id);
+        var searchOverlay = document.getElementById("search-overlay");
+        var searchForm = document.getElementById("search-form");
+        var searchResults = document.getElementById("search-results");
+
+        searchResults.style.visibility = "hidden";
+        searchForm.style.visibility = "hidden";
+        searchOverlay.className = "invisible";
+        cardOverlay.style.display = "block";
     }
     
     var closeCardOverlay = function(index)
     {
         var id = "card-overlay" + index;
-        var overlay = document.getElementById(id);
-        
-        overlay.style.display = "none";
+        var cardOverlay = document.getElementById(id);
+        var searchOverlay = document.getElementById("search-overlay");
+        var searchForm = document.getElementById("search-form");
+        var searchResults = document.getElementById("search-results");
+
+        searchResults.style.visibility = "visible";
+        searchForm.style.visibility = "visible";
+        searchOverlay.className = "";
+        cardOverlay.style.display = "none";
     }
 
     const cards = props.cards.map((card, index) =>

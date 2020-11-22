@@ -12,10 +12,9 @@ function Loading(props)
   const spinPosition = { top: top, left: left, bottom: bottom, right: right };
 
    return (
-       <div id="spinner-background" style={spinPosition}>
-            <img id="spinner" src="./adoring_fan.png" height="100" 
-                    alt="Elder Scrolls Card: Adoring Fan" />
-       </div>
+<div id="spinner-background" style={spinPosition}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<div id="inner-spinner">&nbsp;</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
    );
 }
 

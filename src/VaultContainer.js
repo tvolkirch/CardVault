@@ -113,7 +113,7 @@ class VaultContainer extends Component
         
         if (this.state.loading)
         {
-            loader = <Loading bottom={200} right={150} />;
+            loader = <Loading bottom={100} right={25} />;
         }
     
         const cards = this.state.cards.map((card, index) =>
