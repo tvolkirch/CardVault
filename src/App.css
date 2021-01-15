@@ -56,11 +56,12 @@
 {
     font-size: 2rem;
     font-weight: bold;
-    width: 85%;
     padding-left: 1rem;
+    padding-right: 1rem;
+    display: inline-block;
 }
 
-#search-overlay #close-icon:hover
+#search-overlay .close-icon:hover
 {
     cursor: pointer;
 }
@@ -76,7 +77,7 @@
 	margin: 1rem 0;
 }
 
-#search
+#searchButton
 {
     line-height: 1.5rem;
     font-size: 1.25rem;
@@ -120,6 +121,11 @@
     margin: 0;
     padding: 1rem;
     z-index: 3;
+}
+
+.matched-card-name
+{
+    display: inline-block;
 }
 
 .matched-card-name:hover

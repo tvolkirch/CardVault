@@ -72,13 +72,17 @@ Add more accessibility as needed and test with screen readers.
 
 # Release Notes (in reverse order)
 
-Added better comments in the main app file.
-Changed the spinner.
-Made the search overlay translucent.
+Refactored API as a separate component
+Added Jest unit tests with mocked components and component snapshots
+Added key listeners for web accessibility of searches
 
-Fixed search overlay to not affect scroll position.
-Added spinner on initial page load.
-Improved some background colors.
+Added better comments in the main app file
+Changed the spinner
+Made the search overlay translucent
 
-Converted this project to use git.
+Fixed search overlay to not affect scroll position
+Added spinner on initial page load
+Improved some background colors
+
+Converted this project to use git
 

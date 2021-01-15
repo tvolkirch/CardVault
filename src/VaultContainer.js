@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
 
+import CardService from "./api/CardService";
 import Loading from "./Loading";
 import Card from "./Card";
 
@@ -17,10 +17,10 @@ class VaultContainer extends Component
         this.state = {
             loading: true,
             cards: [],
-            nextApiCall: "https://api.elderscrollslegends.io/v1/cards?page=1&pageSize=20"
+            nextApiCall: null
         };
         
-        // implement infinte scroll with scroll listener and scrollHandler() function to 
+        // implement infinite scroll with scroll listener and scrollHandler() function to
         // check for bottom of the scroll window, where it will call the api to load more 
         // cards - the api graciously returns the URL for the next page of cards
         
@@ -94,28 +94,45 @@ class VaultContainer extends Component
     
     callApi()
     {
-        const apiUrl = this.state.nextApiCall;
-    
-        axios.get(apiUrl)
-            .then(response => {
-                if (this._isMounted)
-                {
-                    const cards = this.state.cards.concat(response.data.cards);
-                    const nextApiCall = response.data._links.next;
-                    this.setState({ loading: false, cards: cards, nextApiCall: nextApiCall });
-                }
-            })
+        const cardService = new CardService();
+        var nextApiCall = this.state.nextApiCall;
+        var cards = [];
+        var cardsPromise;
+
+        if (nextApiCall)
+        {
+           cardsPromise = cardService.cardApi("card", "", nextApiCall);
+        }
+        else
+        {
+           cardsPromise = cardService.cardApi("card");
+        }
+
+        if (cardsPromise !== {})
+        {
+           cardsPromise.then(response =>
+           {
+              cards = this.state.cards.concat(response.data.cards);
+              nextApiCall = response.data._links.next;
+
+              this.setState({ loading: false, cards: cards, nextApiCall: nextApiCall });
+           });
+        }
+        else
+        {
+           this.setState({ loading: false, cards: cards, nextApiCall: null });
+        }
     }
     
     render()
     {
         var loader = "";
-        
+
         if (this.state.loading)
         {
             loader = <Loading bottom={100} right={25} />;
         }
-    
+
         const cards = this.state.cards.map((card, index) =>
               <Card key={index} 
                  url={card.imageUrl}

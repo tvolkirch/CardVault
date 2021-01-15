@@ -30,7 +30,7 @@ body
 
 #info-icon:hover + #disclaimer
 {
-    visibility: visible;
+    visibility: visible !important;
 }
 
 #disclaimer .text

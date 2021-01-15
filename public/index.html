@@ -25,12 +25,55 @@
     <footer id="foot">
         <span>Powered by React</span>
         <img class="head-foot-img" src="%PUBLIC_URL%/logo192.png" alt="React logo"/>
-        <span id="info-icon" class="icon-padding" aria-label="Info icon for disclaimer" role="img">&#9432;</span>
+        <span id="info-icon" class="icon-padding" tabIndex="0" aria-label="Info icon for disclaimer"
+              aria-describedby="disclaimer" role="img">&#9432;</span>
         <div id="disclaimer">
             <p class="text">
  <strong>Disclaimer:</strong> The Elder Scrolls, The Elder Scrolls: Legends, ZeniMax, Bethesda, Bethesda Softworks and related logos are registered trademarks or trademarks of ZeniMax Media Inc. This website is not produced, endorsed, supported, or affiliated with ZeniMax Media Inc.
             </p>
         </div>
     </footer>
+
+    <script>
+
+        /* web accessibility for footer */
+
+        var infoIcon = document.getElementById("info-icon");
+        infoIcon.addEventListener("keydown", toggleDisclaimer);
+
+        function toggleDisclaimer(eve)
+        {
+           var disclaimer = document.getElementById("disclaimer");
+           var isAllowedKey = false;
+
+           if ( eve.keyCode && (eve.keyCode === 13 || eve.keyCode === 32) )
+           {
+              isAllowedKey = true;
+           }
+           else if ( eve.code && eve.code.toUpperCase )
+           {
+              let key = eve.code.toUpperCase();
+
+              if ( key === "ENTER" || key === "SPACE" )
+              {
+                 isAllowedKey = true;
+              }
+           }
+
+           if (isAllowedKey)
+           {
+              if ( disclaimer.style.visibility !== "visible" )
+              {
+                 disclaimer.style.visibility = "visible";
+                 disclaimer.setAttribute("role", "alert");
+              }
+              else
+              {
+                 disclaimer.style.visibility = "hidden";
+                 disclaimer.removeAttribute("role");
+              }
+           }
+        }
+    </script>
   </body>
 </html>

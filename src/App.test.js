@@ -1,16 +1,15 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import renderer from "react-test-renderer";
 
-test('renders title and header and search overlay element', () => {
+import App from "./App";
 
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/Elder Scrolls Card Vault/i);
-  expect(linkElement).toBeInTheDocument();
-  
-  var elem = document.getElementById("head");
-  expect(elem).toBeInTheDocument();
-  
-  elem = document.getElementById("search-overlay");
-  expect(elem).toBeInTheDocument();
+jest.mock("./VaultContainer");
+
+it("Consistently renders blank App", () =>
+{
+   const app = renderer
+      .create(<App />)
+      .toJSON();
+
+   expect(app).toMatchSnapshot();
 });

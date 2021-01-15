@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Consistently renders Vault Container with one mocked card 1`] = `
+<div
+  id="vault-container"
+>
+  <div
+    className="flex-card-wrapper"
+  >
+    <div
+      className="card-content"
+    >
+      <img
+        alt="Elder Scrolls Card: Mocked Card"
+        className="card-image"
+        src="#"
+      />
+    </div>
+    <div
+      className="card-content"
+    >
+      <div
+        className="card-name"
+      >
+        Mocked Card
+      </div>
+      <div>
+        <div
+          className="flex-card-row"
+        >
+          <span
+            className="left-column"
+          >
+            Type:
+          </span>
+          <span
+            className="right-column"
+          >
+            Mocked
+          </span>
+        </div>
+        <div
+          className="flex-card-row"
+        >
+          <span
+            className="left-column"
+          >
+            Set:
+          </span>
+          <span
+            className="right-column"
+          >
+            Mocked Set
+          </span>
+        </div>
+      </div>
+      <div
+        className="card-rules"
+      >
+        This is mocked data for unit testing.
+      </div>
+    </div>
+  </div>
+  
+</div>
+`;

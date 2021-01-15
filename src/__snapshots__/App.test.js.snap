@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Consistently renders blank App 1`] = `
+<div>
+  <header
+    id="head"
+  >
+    <h4>
+      <div
+        className="title"
+      >
+        Elder Scrolls Card Vault
+      </div>
+    </h4>
+    <span
+      aria-label="magnifying glass for search"
+      id="search-icon"
+      onClick={[Function]}
+      role="img"
+      tabIndex="0"
+    >
+      🔍
+    </span>
+  </header>
+  <div
+    id="search-overlay"
+  >
+    
+    <div
+      className="close-button"
+      id="closeSearchOverlay"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      <span
+        aria-label="close button"
+        className="close-icon"
+        role="button"
+      >
+        ⊗
+      </span>
+    </div>
+    <div
+      id="search-form"
+    >
+      <input
+        id="searchText"
+        name="searchText"
+        placeholder="Search by Card Name"
+        size="25"
+        type="search"
+      />
+      <input
+        id="searchButton"
+        onClick={[Function]}
+        type="button"
+        value="Search"
+      />
+    </div>
+    
+  </div>
+  <div
+    id="vault-container"
+  />
+</div>
+`;
