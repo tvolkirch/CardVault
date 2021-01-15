@@ -48,8 +48,6 @@ This command will create the same build directory and contents that's zipped and
 
 It might make sense to try to put spinners over late loading card images.
 
-Add key listener to submit search when Return key or space bar is pressed.
-
 Add error handling.
 
 If it slows down as more cards are added, try PureComponent for Card component to prevent re-rendering of previous cards.
@@ -58,31 +56,39 @@ Refactor App.js by moving SearchResults its own component code file.
 
 Add a floating control to allow a user to jump to the top of the page.
 
-Refactor callNameSearchApi() with search attribute and value.
-
 Add tooltip hover/tap icon with instructions for partial names and for adding comma for AND and the pipe character for OR of multiple name values.
 
 See about including all search results with a scrollable list of card names.
 
-Learn jest so I can add unit tests for the code.
-
 Manually test real smart phones - simulation isn't good enough.
 
-Add more accessibility as needed and test with screen readers.
+Add more accessibility as needed and test with screen readers (started and ongoing)
 
 # Release Notes (in reverse order)
 
-Refactored API as a separate component
-Added Jest unit tests with mocked components and component snapshots
-Added key listeners for web accessibility of searches
+- Refactored API as a separate component
 
-Added better comments in the main app file
-Changed the spinner
-Made the search overlay translucent
+- Added Jest unit tests with mocked components and component snapshots
 
-Fixed search overlay to not affect scroll position
-Added spinner on initial page load
-Improved some background colors
+- Added key listeners for web accessibility of searches
 
-Converted this project to use git
+xxxxx
+
+- Added better comments in the main app file
+
+- Changed the spinner
+
+- Made the search overlay translucent
+
+xxxxx
+
+- Fixed search overlay to not affect scroll position
+
+- Added spinner on initial page load
+
+- Improved some background colors
+
+xxxxx
+
+- Converted this project to use git
 
