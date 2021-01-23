@@ -4,6 +4,8 @@ import CardService from "./api/CardService";
 import Loading from "./Loading";
 import Card from "./Card";
 
+import { getPressedKeyStatus } from "./lib/EventManager";
+
 import "./VaultContainer.css";
 
 class VaultContainer extends Component
@@ -19,17 +21,21 @@ class VaultContainer extends Component
             cards: [],
             nextApiCall: null
         };
-        
-        // implement infinite scroll with scroll listener and scrollHandler() function to
-        // check for bottom of the scroll window, where it will call the api to load more 
-        // cards - the api graciously returns the URL for the next page of cards
+
+        this.topOfPage = React.createRef();
+
+        /* implement infinite scroll with scroll listener and scrollHandler() function to
+           check for bottom of the scroll window, where it will call the api to load more
+           cards - the public api graciously returns the URL for the next page of cards
+         */
         
         var self = this;  // because closure
         var oldPagePosition = 0;
-   
+
         var scrollHandler = function()
         {
-            var pageHt = window.innerHeight,
+            var screenHeight = window.screen.height,
+                pageHt = window.innerHeight,
                 contentHt = document.body.scrollHeight,
                 vScroll = document.body.scrollTop,
                 deltaY;
@@ -38,7 +44,19 @@ class VaultContainer extends Component
             {
                 vScroll = document.documentElement.scrollTop;
             }
-    
+
+            if (self.topOfPage && self.topOfPage.current)
+            {
+                if (vScroll > screenHeight)
+                {
+                    self.topOfPage.current.style.visibility = "visible";
+                }
+                else
+                {
+                    self.topOfPage.current.style.visibility = "hidden";
+                }
+            }
+
             // set distance from the bottom of the page to trigger data loading
             
             deltaY = contentHt - pageHt - 20;
@@ -79,19 +97,52 @@ class VaultContainer extends Component
             }
         );
     }
-        
+
     componentDidMount()
     {
         this._isMounted = true;
-    
+
+        if (this.topOfPage && this.topOfPage.current)
+        {
+            this.topOfPage.current.addEventListener("click", this.handleTopOfPageEvent);
+            this.topOfPage.current.addEventListener("keydown", this.handleTopOfPageEvent);
+        }
+
         this.callApi();
     }
     
     componentWillUnmount()
     {
         this._isMounted = false;
+
+        if (this.topOfPage && this.topOfPage.current)
+        {
+            this.topOfPage.current.removeEventListener("click", this.handleTopOfPageEvent);
+            this.topOfPage.current.removeEventListener("keydown", this.handleTopOfPageEvent);
+        }
     }
     
+    handleTopOfPageEvent = (eve) =>
+    {
+        const documentElement = document.documentElement;
+        const bodyTag = document.body;
+
+        if (eve.type === "click")
+        {
+            documentElement.scrollTop = 0;
+            bodyTag.scrollTop = 0;
+        }
+        else if (eve.type === "keydown")
+        {
+            let keyChecker = getPressedKeyStatus(eve);
+
+            if ( keyChecker.isEnter || keyChecker.isSpace )
+            {
+               eve.target.click();
+            }
+        }
+    }
+
     callApi()
     {
         const cardService = new CardService();
@@ -143,7 +194,9 @@ class VaultContainer extends Component
         );
         
         return (
-           <div id="vault-container">{cards}{loader}</div>
+           <div id="vault-container">{cards}{loader}
+               <div id="top-of-page" tabindex="0" ref={this.topOfPage}>&#8679;</div>
+           </div>
         );
     }
 }

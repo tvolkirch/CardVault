@@ -1,0 +1,50 @@
+#search-overlay
+{
+    position: fixed;
+    top: 0;
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    background:rgba(255, 255, 255, 0.95);
+    color: #333;
+    margin: 0;
+    padding: 1rem;
+    z-index: 2;
+}
+
+#search-overlay .close-button
+{
+    font-size: 2rem;
+    font-weight: bold;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: inline-block;
+}
+
+#search-overlay .close-icon:hover
+{
+    cursor: pointer;
+}
+
+#searchText
+{
+    line-height: 1.5rem;
+    font-size: 1.25rem;
+    border: 2px solid #333;
+	-moz-border-radius: 0.25rem;
+	-webkit-border-radius: 0.25rem;
+	border-radius: 0.25rem;
+	margin: 1rem 0;
+}
+
+#searchButton
+{
+    line-height: 1.5rem;
+    font-size: 1.25rem;
+    margin-left: 0.5rem;
+}
+
+.invisible
+{
+    background:rgba(255, 255, 255, 0) !important;
+}

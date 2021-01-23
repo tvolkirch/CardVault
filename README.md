@@ -66,6 +66,12 @@ Add more accessibility as needed and test with screen readers (started and ongoi
 
 # Release Notes (in reverse order)
 
+- Refactored search overlay and search results as separate components
+
+- Added a top of page control (and made it accessible by keyboard) to reduce scrolling
+
+xxxxx
+
 - Refactored API as a separate component
 
 - Added Jest unit tests with mocked components and component snapshots

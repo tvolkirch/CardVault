@@ -6,3 +6,28 @@
     margin-top: 3.5rem;
     margin-bottom: 3rem;
 }
+
+#top-of-page
+{
+    visibility: hidden;
+    position: fixed;
+    bottom: 3.5rem;
+    right: 1rem;
+    color: #f1f1f1;
+    font-weight: bold;
+    background-color: #33c;
+    margin: 0;
+    padding: 0.3rem;
+    border: 2px solid #f1f1f1;
+}
+
+#top-of-page:hover
+{
+    cursor: pointer;
+    background-color: #36f;
+}
+
+#top-of-page:focus
+{
+    background-color: lime;
+}
