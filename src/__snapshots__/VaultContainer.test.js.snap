@@ -14,10 +14,13 @@ exports[`Consistently renders Vault Container with one mocked card 1`] = `
         alt="Elder Scrolls Card: Mocked Card"
         className="card-image"
         src="#"
+        tabIndex="0"
       />
     </div>
     <div
-      className="card-content"
+      className="card-content card-text"
+      data=""
+      tabIndex="0"
     >
       <div
         className="card-name"
@@ -62,5 +65,11 @@ exports[`Consistently renders Vault Container with one mocked card 1`] = `
     </div>
   </div>
   
+  <div
+    id="top-of-page"
+    tabIndex="0"
+  >
+    ⇧
+  </div>
 </div>
 `;

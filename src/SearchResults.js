@@ -13,21 +13,22 @@ function SearchResults(props)
         var id = "cardOverlay" + index;
         var cardOverlay = document.getElementById(id);
         var searchOverlay = document.getElementById("search-overlay");
-        var searchForm = document.getElementById("search-form");
-        var searchResults = document.getElementById("search-results");
+        var buttonArray = cardOverlay.getElementsByClassName("close-button");
+        const currentCard = document.getElementById("cardOverlay" + index);
+        var cardArray = currentCard.getElementsByClassName("card-content card-text");
 
-        searchResults.style.visibility = "hidden";
-        searchForm.style.visibility = "hidden";
         searchOverlay.className = "invisible";
         cardOverlay.style.display = "block";
-
-        var buttonArray = cardOverlay.getElementsByClassName("close-button");
 
         if (buttonArray && buttonArray[0])
         {
             buttonArray[0].focus();
             buttonArray[0].addEventListener("keydown", handleCloseButton);
-            buttonArray[0].addEventListener("blur", buttonArray[0].focus);
+        }
+
+        if ( cardArray && cardArray[0] )
+        {
+            cardArray[0].addEventListener("keydown", handleCardTabbing);
         }
     }
 
@@ -36,21 +37,22 @@ function SearchResults(props)
         var id = "cardOverlay" + index;
         var cardOverlay = document.getElementById(id);
         var searchOverlay = document.getElementById("search-overlay");
-        var searchForm = document.getElementById("search-form");
-        var searchResults = document.getElementById("search-results");
-
-        searchResults.style.visibility = "visible";
-        searchForm.style.visibility = "visible";
-        searchOverlay.className = "";
-        cardOverlay.style.display = "none";
-
         var buttonArray = cardOverlay.getElementsByClassName("close-button");
         var searchText = document.getElementById("searchText");
+        const currentCard = document.getElementById("cardOverlay" + index);
+        var cardArray = currentCard.getElementsByClassName("card-content card-text");
+
+        searchOverlay.className = "";
+        cardOverlay.style.display = "none";
 
         if (buttonArray && buttonArray[0])
         {
             buttonArray[0].removeEventListener("keydown", handleCloseButton);
-            buttonArray[0].removeEventListener("blur", buttonArray[0].focus);
+        }
+
+        if ( cardArray && cardArray[0] )
+        {
+            cardArray[0].removeEventListener("keydown", handleCardTabbing);
         }
 
         searchText.focus();
@@ -58,17 +60,44 @@ function SearchResults(props)
 
     function handleCloseButton(eve)
     {
-       const originatorElement = eve.target;
-       const originatorClass = originatorElement.getAttribute("class");
+        const originatorElement = eve.target;
+        const index = originatorElement.getAttribute("data");
+        const originatorClass = originatorElement.getAttribute("class");
+        const currentCard = document.getElementById("cardOverlay" + index);
+        var cardArray = currentCard.getElementsByClassName("card-content card-text");
+        const keyChecker = getPressedKeyStatus(eve);
 
-       const keyChecker = getPressedKeyStatus(eve);
+        if ( originatorClass.indexOf("close-button") > -1 )
+        {
+            if ( keyChecker.isEnter || keyChecker.isSpace )
+            {
+                closeCardOverlay(index);
+            }
 
-       if ( (originatorClass.indexOf("close-button") > -1)
-           && (keyChecker.isEnter || keyChecker.isSpace) )
-       {
-          let index = originatorElement.getAttribute("data");
-          closeCardOverlay(index);
-       }
+            if ( cardArray && cardArray[0] && keyChecker.isTab && eve.shiftKey )
+            {
+                eve.preventDefault();
+                cardArray[0].focus();
+            }
+        }
+    }
+
+    function handleCardTabbing(eve)
+    {
+        const originatorElement = eve.target;
+        const index = originatorElement.getAttribute("data");
+        const currentCard = document.getElementById("cardOverlay" + index);
+        var closeButtonArr = currentCard.getElementsByClassName("close-button");
+        const keyChecker = getPressedKeyStatus(eve);
+
+        if (closeButtonArr && closeButtonArr[0] )
+        {
+            if (keyChecker.isTab && !eve.shiftKey)
+            {
+                eve.preventDefault();
+                closeButtonArr[0].focus();
+            }
+        }
     }
 
     var cards = "";
@@ -85,6 +114,7 @@ function SearchResults(props)
                         <span className="close-icon" aria-label="close button" role="button">&#8855;</span>
                     </div>
                     <Card
+                     index={index}
                      url={card.imageUrl}
                      name={card.name}
                      type={card.type}
@@ -117,7 +147,7 @@ function SearchResults(props)
 
     return (
         <div>
-            <div id="search-results">{message}</div>
+            <div id="search-results" tabIndex="0">{message}</div>
             <ul id="matchedCardList">{cards}</ul>
         </div>
     );

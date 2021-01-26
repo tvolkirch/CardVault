@@ -185,7 +185,8 @@ class VaultContainer extends Component
         }
 
         const cards = this.state.cards.map((card, index) =>
-              <Card key={index} 
+              <Card key={index}
+                 index=""
                  url={card.imageUrl}
                  name={card.name}
                  type={card.type}
@@ -195,7 +196,7 @@ class VaultContainer extends Component
         
         return (
            <div id="vault-container">{cards}{loader}
-               <div id="top-of-page" tabindex="0" ref={this.topOfPage}>&#8679;</div>
+               <div id="top-of-page" tabIndex="0" ref={this.topOfPage}>&#8679;</div>
            </div>
         );
     }

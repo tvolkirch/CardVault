@@ -7,10 +7,10 @@ function Card(props)
    return (
       <div className="flex-card-wrapper">
          <div className="card-content">
-            <img className="card-image" src={props.url}
+            <img className="card-image" src={props.url} tabIndex="0"
                alt={"Elder Scrolls Card: " + props.name}/>
          </div>
-         <div className="card-content">
+         <div className="card-content card-text" data={props.index} tabIndex="0">
                <div className="card-name">{props.name}</div>
                <div>
                   <div className="flex-card-row">
