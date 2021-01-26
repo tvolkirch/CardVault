@@ -52,10 +52,6 @@ Add error handling.
 
 If it slows down as more cards are added, try PureComponent for Card component to prevent re-rendering of previous cards.
 
-Refactor App.js by moving SearchResults its own component code file.
-
-Add a floating control to allow a user to jump to the top of the page.
-
 Add tooltip hover/tap icon with instructions for partial names and for adding comma for AND and the pipe character for OR of multiple name values.
 
 See about including all search results with a scrollable list of card names.
