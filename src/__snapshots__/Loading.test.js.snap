@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Consistently renders the spinner 1`] = `
+<div
+  id="spinner-background"
+  style={
+    Object {
+      "bottom": "100px",
+      "left": "",
+      "right": "25px",
+      "top": "",
+    }
+  }
+>
+        
+  <div
+    id="inner-spinner"
+  >
+     
+  </div>
+        
+</div>
+`;

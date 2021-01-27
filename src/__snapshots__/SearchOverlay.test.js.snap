@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Consistently renders the search overlay 1`] = `
+<div
+  id="search-overlay"
+>
+  
+  <div
+    className="close-button"
+    id="closeSearchOverlay"
+    onClick={[Function]}
+    tabIndex="0"
+  >
+    <span
+      aria-label="close button"
+      className="close-icon"
+      role="button"
+    >
+      ⊗
+    </span>
+  </div>
+  <div
+    id="search-form"
+  >
+    <input
+      id="searchText"
+      name="searchText"
+      placeholder="Search by Card Name"
+      size="25"
+      type="search"
+    />
+    <input
+      id="searchButton"
+      onClick={[Function]}
+      type="button"
+      value="Search"
+    />
+  </div>
+  
+</div>
+`;

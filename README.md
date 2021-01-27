@@ -62,6 +62,12 @@ Add more accessibility as needed and test with screen readers (started and ongoi
 
 # Release Notes (in reverse order)
 
+- moved scroll listener to componentDidMount() as it should be
+
+- added unit tests for EventManager, Loading (spinner), SearchOverlay, SearchResults
+
+xxxxx
+
 - Made the cards accessible by keyboard
 
 xxxxx

@@ -10,25 +10,35 @@ import "./VaultContainer.css";
 
 class VaultContainer extends Component
 {
-    _isMounted = false;
-
     constructor(props, context)
     {
         super(props, context);
 
-        this.state = {
-            loading: true,
+        this._data = {
             cards: [],
             nextApiCall: null
         };
 
+        this.state = {loading: true};
+
         this.topOfPage = React.createRef();
+    }
+
+    componentDidMount()
+    {
+        if (this.topOfPage && this.topOfPage.current)
+        {
+            this.topOfPage.current.addEventListener("click", this.handleTopOfPageEvent);
+            this.topOfPage.current.addEventListener("keydown", this.handleTopOfPageEvent);
+        }
+
+        this.callApi();
 
         /* implement infinite scroll with scroll listener and scrollHandler() function to
            check for bottom of the scroll window, where it will call the api to load more
            cards - the public api graciously returns the URL for the next page of cards
          */
-        
+
         var self = this;  // because closure
         var oldPagePosition = 0;
 
@@ -39,7 +49,7 @@ class VaultContainer extends Component
                 contentHt = document.body.scrollHeight,
                 vScroll = document.body.scrollTop,
                 deltaY;
-    
+
             if (vScroll === 0)
             {
                 vScroll = document.documentElement.scrollTop;
@@ -58,63 +68,46 @@ class VaultContainer extends Component
             }
 
             // set distance from the bottom of the page to trigger data loading
-            
+
             deltaY = contentHt - pageHt - 20;
-          
+
             // scrolled within range of the bottom to trigger another content load
-            
-            if ( vScroll > deltaY )  
+
+            if ( vScroll > deltaY )
             {
                 // help minimize multiple content loadings
-                
-                if ( vScroll !== oldPagePosition )  
+
+                if ( vScroll !== oldPagePosition )
                 {
-                    self.setState( {loading: true} );
-                        
-                    setTimeout( function()  
+                    setTimeout( function()
                     {
                         self.callApi();
                     }, 500);
-                    
+
                     oldPagePosition = vScroll;
                 }
             }
         };
-       
+
         var scrollTimer;
-             
-        document.addEventListener("scroll", 
-            function() 
+
+        document.addEventListener("scroll",
+            function()
             {
                 // limit scroll listener to a half second so it doesn't fire too often
-                
-                if (scrollTimer) 
+
+                if (scrollTimer)
                 {
                     window.clearTimeout(scrollTimer);
                 }
-             
+
                 scrollTimer = window.setTimeout(scrollHandler, 500);
             }
         );
     }
-
-    componentDidMount()
-    {
-        this._isMounted = true;
-
-        if (this.topOfPage && this.topOfPage.current)
-        {
-            this.topOfPage.current.addEventListener("click", this.handleTopOfPageEvent);
-            this.topOfPage.current.addEventListener("keydown", this.handleTopOfPageEvent);
-        }
-
-        this.callApi();
-    }
     
     componentWillUnmount()
     {
-        this._isMounted = false;
-
         if (this.topOfPage && this.topOfPage.current)
         {
             this.topOfPage.current.removeEventListener("click", this.handleTopOfPageEvent);
@@ -146,9 +139,11 @@ class VaultContainer extends Component
     callApi()
     {
         const cardService = new CardService();
-        var nextApiCall = this.state.nextApiCall;
+        var nextApiCall = this._data.nextApiCall;
         var cards = [];
         var cardsPromise;
+
+        this.setState( {loading: true} );
 
         if (nextApiCall)
         {
@@ -163,15 +158,17 @@ class VaultContainer extends Component
         {
            cardsPromise.then(response =>
            {
-              cards = this.state.cards.concat(response.data.cards);
+              cards = this._data.cards.concat(response.data.cards);
               nextApiCall = response.data._links.next;
 
-              this.setState({ loading: false, cards: cards, nextApiCall: nextApiCall });
+              this._data = { cards: cards, nextApiCall: nextApiCall };
+              this.setState( {loading: false} );
            });
         }
         else
         {
-           this.setState({ loading: false, cards: cards, nextApiCall: null });
+           this._data = { cards: cards, nextApiCall: null };
+           this.setState( {loading: false} );
         }
     }
     
@@ -184,7 +181,7 @@ class VaultContainer extends Component
             loader = <Loading bottom={100} right={25} />;
         }
 
-        const cards = this.state.cards.map((card, index) =>
+        const cards = this._data.cards.map((card, index) =>
               <Card key={index}
                  index=""
                  url={card.imageUrl}
