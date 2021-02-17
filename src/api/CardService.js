@@ -23,6 +23,11 @@ class CardService extends Component
 
    cardApi(urlKey, pattern, nextUrl)
    {
+      return this.cardApiCall(axios.get, urlKey, pattern, nextUrl);
+   }
+
+   cardApiCall(apiGetFunction, urlKey, pattern, nextUrl)
+   {
       var url = this.urlMap.get(urlKey);
       var response = {};
 
@@ -44,10 +49,15 @@ class CardService extends Component
 
          /* returns a promise that is handled by the calling function */
 
-         return axios.get(url);
+         return apiGetFunction(url);
       }
 
       return response;
+   }
+
+   getUrlMap()
+   {
+      return this.urlMap;
    }
 }
 

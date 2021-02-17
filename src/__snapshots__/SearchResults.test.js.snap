@@ -3,18 +3,21 @@
 exports[`Consistently renders search results 1`] = `
 <div>
   <div
+    data-testid="search-results"
     id="search-results"
     tabIndex="0"
   >
     The search text matched 1 card names. Click on any card name to display the card.
   </div>
   <ul
+    data-testid="matchedCardList"
     id="matchedCardList"
   >
     <li>
       <div
         className="matched-card-name"
         data={0}
+        data-testid="matchedCardName0"
         id="matchedCardName0"
         onClick={[Function]}
         tabIndex="0"
@@ -23,11 +26,14 @@ exports[`Consistently renders search results 1`] = `
       </div>
       <div
         className="card-overlay"
+        data-testid="cardOverlay0"
         id="cardOverlay0"
       >
         <div
           className="close-button"
           data={0}
+          data-testid="closeCardOverlay0"
+          id="closeCardOverlay0"
           onClick={[Function]}
           tabIndex="0"
         >
@@ -44,12 +50,12 @@ exports[`Consistently renders search results 1`] = `
         >
           <div
             className="card-content"
+            tabIndex="0"
           >
             <img
               alt="Elder Scrolls Card: Card Name"
               className="card-image"
               src="#"
-              tabIndex="0"
             />
           </div>
           <div

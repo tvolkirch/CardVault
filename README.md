@@ -1,4 +1,5 @@
 # CardVault
+
 NOTE: This application was a coding exercise that was given to me as part of a hiring process. Admittedly, the code isn't at a professional level, and I didn't get the job. I have a full-time job and a lot going on at home lately so I didn't have as much time as I wanted to devote to the coding exercise. I will be slowly polishing it as I have time, and maybe I can use it as an example of my work so I can get another job.
 
 This CardVault application is a coding exercise, designed to consume a public API and display stylized data with an infinite scroll and a search function. It was created using React.
@@ -26,6 +27,7 @@ The application should appear in the browser. Scroll down to the bottom of the p
 
 To quit the serve command, type Cmd/. (MacOS) or Ctrl/C (Windows).
 
+
 # Creating the Development Environment
 
 1. Download the tvolkirch/CardVault repository on your computer and unzip it a directory of your choosing. NOTE: I haven't yet created a pubic key so the best that can be done for now is to download the code as a zip file and unzip it.
@@ -44,27 +46,25 @@ npm run build
 
 This command will create the same build directory and contents that's zipped and saved in this code repository.
 
+
 # TO-DO LIST
 
 It might make sense to try to put spinners over late loading card images.
 
 Add error handling.
 
-If it slows down as more cards are added, try PureComponent for Card component to prevent re-rendering of previous cards.
-
 Add tooltip hover/tap icon with instructions for partial names and for adding comma for AND and the pipe character for OR of multiple name values.
 
 See about including all search results with a scrollable list of card names.
 
-Manually test real smart phones - simulation isn't good enough.
-
-Add more accessibility as needed and test with screen readers (started and ongoing)
 
 # Release Notes (in reverse order)
 
 - moved scroll listener to componentDidMount() as it should be
 
-- added unit tests for EventManager, Loading (spinner), SearchOverlay, SearchResults
+- refactored code to make it easier to test
+
+- added unit tests to exceed 80 percent coverage of all code
 
 xxxxx
 

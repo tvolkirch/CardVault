@@ -6,12 +6,12 @@ exports[`Consistently renders a card 1`] = `
 >
   <div
     className="card-content"
+    tabIndex="0"
   >
     <img
       alt="Elder Scrolls Card: Card Name"
       className="card-image"
       src="#"
-      tabIndex="0"
     />
   </div>
   <div

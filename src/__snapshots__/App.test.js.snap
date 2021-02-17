@@ -14,6 +14,7 @@ exports[`Consistently renders blank App 1`] = `
     </h4>
     <span
       aria-label="magnifying glass for search"
+      data-testid="search-icon"
       id="search-icon"
       onClick={[Function]}
       role="img"
@@ -23,11 +24,13 @@ exports[`Consistently renders blank App 1`] = `
     </span>
   </header>
   <div
+    data-testid="search-overlay"
     id="search-overlay"
   >
     
     <div
       className="close-button"
+      data-testid="closeSearchOverlay"
       id="closeSearchOverlay"
       onClick={[Function]}
       tabIndex="0"
@@ -44,6 +47,7 @@ exports[`Consistently renders blank App 1`] = `
       id="search-form"
     >
       <input
+        data-testid="searchText"
         id="searchText"
         name="searchText"
         placeholder="Search by Card Name"

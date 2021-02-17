@@ -33,17 +33,17 @@ class SearchOverlay extends Component
 
        if (this.closeButton.current)
        {
-          this.closeButton.current.addEventListener("keydown", this.handleCloseButton);
+          this.closeButton.current.addEventListener("keydown", this.handleCloseButtonEvent);
        }
 
        if (this.searchText.current)
        {
-          this.searchText.current.addEventListener("keydown", this.handleSearchText);
+          this.searchText.current.addEventListener("keydown", this.handleSearchTextEvent);
        }
 
        if (this.searchButton.current)
        {
-          this.searchButton.current.addEventListener("keydown", this.handleSearchButton);
+          this.searchButton.current.addEventListener("keydown", this.handleSearchButtonEvent);
        }
     }
 
@@ -55,7 +55,7 @@ class SearchOverlay extends Component
        {
           for (let i = 0; i < cardArray.length; i++ )
           {
-             cardArray[i].addEventListener("keydown", this.handleCardLink);
+             cardArray[i].addEventListener("keydown", this.handleCardLinkEvent);
           }
        }
     }
@@ -67,17 +67,17 @@ class SearchOverlay extends Component
 
        if (this.closeButton.current)
        {
-          this.closeButton.current.removeEventListener("keydown", this.handleCloseButton);
+          this.closeButton.current.removeEventListener("keydown", this.handleCloseButtonEvent);
        }
 
        if (this.searchText.current)
        {
-          this.searchText.current.removeEventListener("keydown", this.handleSearchText);
+          this.searchText.current.removeEventListener("keydown", this.handleSearchTextEvent);
        }
 
        if (this.searchButton.current)
        {
-          this.searchButton.current.removeEventListener("keydown", this.handleSearchButton);
+          this.searchButton.current.removeEventListener("keydown", this.handleSearchButtonEvent);
        }
 
        var cardArray = document.getElementsByClassName("matched-card-name");
@@ -86,18 +86,30 @@ class SearchOverlay extends Component
        {
           for (let i = 0; i < cardArray.length; i++ )
           {
-             cardArray[i].removeEventListener("keydown", this.handleCardLink);
+             cardArray[i].removeEventListener("keydown", this.handleCardLinkEvent);
           }
        }
     }
 
-    handleCloseButton = (eve) =>
+    handleCloseButtonEvent = (eve) =>
+    {
+       const matchedCardList = document.getElementById("matchedCardList");
+
+       this.handleCloseButton(eve, matchedCardList);
+    }
+
+    handleCloseButton(eve, matchedCardList)
     {
        const originatorElement = eve.target;
        const originatorId = originatorElement.getAttribute("id");
        const keyChecker = getPressedKeyStatus(eve);
-       var lastTabbedControl = document.getElementById("searchButton");
-       var cardArray = document.getElementsByClassName("matched-card-name");
+       var lastTabbedControl = this.searchButton.current;
+       var cardArray = [];
+
+       if (matchedCardList)
+       {
+          cardArray = matchedCardList.getElementsByClassName("matched-card-name");
+       }
 
        if ( cardArray && cardArray.length > 0 )
        {
@@ -121,58 +133,78 @@ class SearchOverlay extends Component
        }
     }
 
-    handleSearchText = (eve) =>
+    handleSearchTextEvent = (eve) =>
     {
        const originatorElement = eve.target;
        const originatorId = originatorElement.getAttribute("id");
-       const searchButton = document.getElementById("searchButton");
 
        const keyChecker = getPressedKeyStatus(eve);
 
        if ( originatorId === "searchText" && keyChecker.isEnter )
        {
-          searchButton.click();
+          this.searchButton.current.click();
        }
     }
 
-    handleSearchButton = (eve) =>
+    handleSearchButtonEvent = (eve) =>
+    {
+       const matchedCardList = document.getElementById("matchedCardList");
+
+       this.handleSearchButton(eve, matchedCardList);
+    }
+
+    handleSearchButton(eve, matchedCardList)
     {
        const originatorElement = eve.target;
        const originatorId = originatorElement.getAttribute("id");
-       const searchButton = document.getElementById("searchButton");
-
        const keyChecker = getPressedKeyStatus(eve);
+       var cardArray = [];
+
+       if (matchedCardList)
+       {
+          cardArray = matchedCardList.getElementsByClassName("matched-card-name");
+       }
 
        if ( originatorId === "searchButton"
            && (keyChecker.isEnter || keyChecker.isSpace) )
        {
-          searchButton.click();
+          this.searchButton.current.click();
        }
 
        /* keep tabbing on search overlay */
 
-       var cardArray = document.getElementsByClassName("matched-card-name");
-
        if ( !cardArray || cardArray.length === 0 )
        {
-          let closeSearchOverlay = document.getElementById("closeSearchOverlay");
-
           if ( keyChecker.isTab && !eve.shiftKey )
           {
              eve.preventDefault();
-             closeSearchOverlay.focus();
+             this.closeButton.current.focus();
           }
        }
     }
 
-    handleCardLink = (eve) =>
+    handleCardLinkEvent = (eve) =>
+    {
+       const matchedCardList = document.getElementById("matchedCardList");
+
+       this.handleCardLink(eve, matchedCardList);
+    }
+
+    handleCardLink(eve, matchedCardList)
     {
        const originatorElement = eve.target;
        const keyChecker = getPressedKeyStatus(eve);
+       var cardArray = [];
+
+       if (matchedCardList)
+       {
+          cardArray = matchedCardList.getElementsByClassName("matched-card-name");
+       }
 
        if ( keyChecker.isEnter || keyChecker.isSpace )
        {
           originatorElement.click();
+          return;
        }
 
        /* keep tabbing on search overlay */
@@ -180,8 +212,6 @@ class SearchOverlay extends Component
        var lastTabbedControl = null;
        var lastTabbedControlIndex = "";
        const originatorIndex = originatorElement.getAttribute("data");
-       const cardArray = document.getElementsByClassName("matched-card-name");
-       const closeSearchOverlay = document.getElementById("closeSearchOverlay");
 
        if ( cardArray && cardArray.length > 0 )
        {
@@ -192,7 +222,7 @@ class SearchOverlay extends Component
        if ( keyChecker.isTab && !eve.shiftKey && originatorIndex === lastTabbedControlIndex )
        {
           eve.preventDefault();
-          closeSearchOverlay.focus();
+          this.closeButton.current.focus();
        }
     }
 
@@ -208,15 +238,21 @@ class SearchOverlay extends Component
 
     search()
     {
+        var searchElement = document.getElementById("searchText");
+
+        this.searchApi(searchElement);
+    }
+
+    searchApi(searchElement)
+    {
         this.setState( {loading: true} );
 
-        const searchElement = document.getElementById("searchText");
         const cardService = new CardService();
         var searchPromise = cardService.cardApi("find", searchElement.value);
         var count = 0;
         var cards = [];
 
-        if (searchPromise !== {})
+        if (searchPromise && searchPromise.then)
         {
            searchPromise.then(response =>
            {
@@ -230,8 +266,6 @@ class SearchOverlay extends Component
         {
            this.setState( {loading: false, cards: cards, count: count, hasSearched: true} );
         }
-
-        return false;
     }
 
     render()
@@ -252,14 +286,16 @@ class SearchOverlay extends Component
         }
 
         return (
-<div id="search-overlay">
+<div id="search-overlay" data-testid="search-overlay">
     {loader}
     <div id="closeSearchOverlay" className="close-button" ref={this.closeButton}
+         data-testid="closeSearchOverlay"
          tabIndex="0" onClick={(eve) => this.closeSearchOverlay()}>
         <span className="close-icon" aria-label="close button" role="button">&#8855;</span>
     </div>
     <div id="search-form">
         <input type="search" size="25" name="searchText" id="searchText"
+            data-testid="searchText"
             ref={this.searchText} placeholder="Search by Card Name"/>
         <input type="button" value="Search" id="searchButton"
             ref={this.searchButton} onClick={(eve) => this.search()} />

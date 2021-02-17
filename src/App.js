@@ -29,8 +29,6 @@ import "./App.css";
 
 class App extends Component
 {
-    searchButton;
-
     constructor()
     {
         super();
@@ -75,7 +73,7 @@ class App extends Component
         var searchText = document.getElementById("searchText");
 
         overlay.style.display = "block";
-        bodyTag.style.overflow = "hidden";  /* hide scrollbar to prevent scrolling */
+        bodyTag.style.overflow = "hidden";  /* hide scrollbar to prevent scrolling in the background */
 
        if (searchText)
        {
@@ -92,6 +90,7 @@ class App extends Component
                        <div className="title">Elder Scrolls Card Vault</div>
                     </h4>
                     <span id="search-icon" ref={this.searchIcon} tabIndex="0"
+                          data-testid="search-icon"
                           aria-label="magnifying glass for search" role="img"
                           onClick={(eve) => this.openSearchOverlay()}>&#128269;</span>
                 </header>

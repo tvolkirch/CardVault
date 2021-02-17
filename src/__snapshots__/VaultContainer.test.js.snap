@@ -9,12 +9,12 @@ exports[`Consistently renders Vault Container with one mocked card 1`] = `
   >
     <div
       className="card-content"
+      tabIndex="0"
     >
       <img
         alt="Elder Scrolls Card: Mocked Card"
         className="card-image"
         src="#"
-        tabIndex="0"
       />
     </div>
     <div

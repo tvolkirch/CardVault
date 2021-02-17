@@ -6,9 +6,9 @@ exports[`Consistently renders the spinner 1`] = `
   style={
     Object {
       "bottom": "100px",
-      "left": "",
+      "left": "100px",
       "right": "25px",
-      "top": "",
+      "top": "25px",
     }
   }
 >

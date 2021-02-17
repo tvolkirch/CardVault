@@ -18,10 +18,10 @@ class VaultContainer extends Component
             cards: [],
             nextApiCall: null
         };
+        this.oldPagePosition = 0;
+        this.topOfPage = React.createRef();
 
         this.state = {loading: true};
-
-        this.topOfPage = React.createRef();
     }
 
     componentDidMount()
@@ -39,69 +39,18 @@ class VaultContainer extends Component
            cards - the public api graciously returns the URL for the next page of cards
          */
 
-        var self = this;  // because closure
-        var oldPagePosition = 0;
-
-        var scrollHandler = function()
-        {
-            var screenHeight = window.screen.height,
-                pageHt = window.innerHeight,
-                contentHt = document.body.scrollHeight,
-                vScroll = document.body.scrollTop,
-                deltaY;
-
-            if (vScroll === 0)
-            {
-                vScroll = document.documentElement.scrollTop;
-            }
-
-            if (self.topOfPage && self.topOfPage.current)
-            {
-                if (vScroll > screenHeight)
-                {
-                    self.topOfPage.current.style.visibility = "visible";
-                }
-                else
-                {
-                    self.topOfPage.current.style.visibility = "hidden";
-                }
-            }
-
-            // set distance from the bottom of the page to trigger data loading
-
-            deltaY = contentHt - pageHt - 20;
-
-            // scrolled within range of the bottom to trigger another content load
-
-            if ( vScroll > deltaY )
-            {
-                // help minimize multiple content loadings
-
-                if ( vScroll !== oldPagePosition )
-                {
-                    setTimeout( function()
-                    {
-                        self.callApi();
-                    }, 500);
-
-                    oldPagePosition = vScroll;
-                }
-            }
-        };
-
         var scrollTimer;
 
-        document.addEventListener("scroll",
-            function()
+        document.addEventListener("scroll", () =>
             {
                 // limit scroll listener to a half second so it doesn't fire too often
 
                 if (scrollTimer)
                 {
-                    window.clearTimeout(scrollTimer);
+                    clearTimeout(scrollTimer);
                 }
 
-                scrollTimer = window.setTimeout(scrollHandler, 500);
+                scrollTimer = setTimeout( () => { this.scrollHandler(); }, 500);
             }
         );
     }
@@ -114,7 +63,60 @@ class VaultContainer extends Component
             this.topOfPage.current.removeEventListener("keydown", this.handleTopOfPageEvent);
         }
     }
-    
+
+    getWindowInfo()
+    {
+        var info = {};
+
+        info.screenHeight = window.screen.height;
+        info.pageHt = window.innerHeight;
+        info.contentHt = document.body.scrollHeight;
+        info.vScroll = document.body.scrollTop;
+
+        if (info.vScroll === 0)
+        {
+            info.vScroll = document.documentElement.scrollTop;
+        }
+
+        return info;
+    }
+
+    scrollHandler()
+    {
+        var deltaY;
+        const info = this.getWindowInfo();
+
+        if (this.topOfPage && this.topOfPage.current)
+        {
+            if (info.vScroll > info.screenHeight)
+            {
+                this.topOfPage.current.style.visibility = "visible";
+            }
+            else
+            {
+                this.topOfPage.current.style.visibility = "hidden";
+            }
+        }
+
+        // set distance from the bottom of the page to trigger data loading
+
+        deltaY = info.contentHt - info.pageHt - 20;
+
+        // scrolled within range of the bottom to trigger another content load
+
+        if ( info.vScroll > deltaY )
+        {
+            // help minimize multiple content loadings
+
+            if ( info.vScroll !== this.oldPagePosition )
+            {
+                setTimeout( () => { this.callApi(); }, 500);
+
+                this.oldPagePosition = info.vScroll;
+            }
+        }
+    }
+
     handleTopOfPageEvent = (eve) =>
     {
         const documentElement = document.documentElement;

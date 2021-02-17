@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 
 import Card from "./Card";
 
@@ -6,72 +6,88 @@ import { getPressedKeyStatus } from "./lib/EventManager";
 
 import "./SearchResults.css";
 
-function SearchResults(props)
+class SearchResults extends Component
 {
-    var openCardOverlay = function(index)
+    openCardOverlay(index)
     {
         var id = "cardOverlay" + index;
         var cardOverlay = document.getElementById(id);
+        var closeButton = document.getElementById("closeCardOverlay" + index);
         var searchOverlay = document.getElementById("search-overlay");
-        var buttonArray = cardOverlay.getElementsByClassName("close-button");
-        const currentCard = document.getElementById("cardOverlay" + index);
-        var cardArray = currentCard.getElementsByClassName("card-content card-text");
+        var cardArray = cardOverlay.getElementsByClassName("card-content card-text");
 
-        searchOverlay.className = "invisible";
         cardOverlay.style.display = "block";
 
-        if (buttonArray && buttonArray[0])
+        if (searchOverlay)
         {
-            buttonArray[0].focus();
-            buttonArray[0].addEventListener("keydown", handleCloseButton);
+            searchOverlay.className = "invisible";
+        }
+
+        if (closeButton)
+        {
+            closeButton.focus();
+            closeButton.addEventListener("keydown", this.handleCloseButtonEvent);
         }
 
         if ( cardArray && cardArray[0] )
         {
-            cardArray[0].addEventListener("keydown", handleCardTabbing);
+            cardArray[0].addEventListener("keydown", this.handleCardTabbingEvent);
         }
     }
 
-    var closeCardOverlay = function(index)
+    closeCardOverlay(index)
     {
         var id = "cardOverlay" + index;
         var cardOverlay = document.getElementById(id);
+        var closeButton = document.getElementById("closeCardOverlay" + index);
         var searchOverlay = document.getElementById("search-overlay");
-        var buttonArray = cardOverlay.getElementsByClassName("close-button");
         var searchText = document.getElementById("searchText");
-        const currentCard = document.getElementById("cardOverlay" + index);
-        var cardArray = currentCard.getElementsByClassName("card-content card-text");
+        var cardArray = cardOverlay.getElementsByClassName("card-content card-text");
 
-        searchOverlay.className = "";
         cardOverlay.style.display = "none";
 
-        if (buttonArray && buttonArray[0])
+        if (searchOverlay)
         {
-            buttonArray[0].removeEventListener("keydown", handleCloseButton);
+            searchOverlay.className = "";
+        }
+
+        if (closeButton)
+        {
+            closeButton.removeEventListener("keydown", this.handleCloseButtonEvent);
         }
 
         if ( cardArray && cardArray[0] )
         {
-            cardArray[0].removeEventListener("keydown", handleCardTabbing);
+            cardArray[0].removeEventListener("keydown", this.handleCardTabbingEvent);
         }
 
-        searchText.focus();
+        if (searchText)
+        {
+            searchText.focus();
+        }
     }
 
-    function handleCloseButton(eve)
+    handleCloseButtonEvent = (eve) =>
     {
         const originatorElement = eve.target;
         const index = originatorElement.getAttribute("data");
-        const originatorClass = originatorElement.getAttribute("class");
         const currentCard = document.getElementById("cardOverlay" + index);
         var cardArray = currentCard.getElementsByClassName("card-content card-text");
+
+        this.handleCloseButton(eve, cardArray, index);
+    }
+
+    handleCloseButton(eve, cardArray, index)
+    {
+        const originatorElement = eve.target;
+        const originatorClass = originatorElement.getAttribute("class");
         const keyChecker = getPressedKeyStatus(eve);
 
         if ( originatorClass.indexOf("close-button") > -1 )
         {
             if ( keyChecker.isEnter || keyChecker.isSpace )
             {
-                closeCardOverlay(index);
+                this.closeCardOverlay(index);
             }
 
             if ( cardArray && cardArray[0] && keyChecker.isTab && eve.shiftKey )
@@ -82,12 +98,18 @@ function SearchResults(props)
         }
     }
 
-    function handleCardTabbing(eve)
+    handleCardTabbingEvent = (eve) =>
     {
         const originatorElement = eve.target;
         const index = originatorElement.getAttribute("data");
         const currentCard = document.getElementById("cardOverlay" + index);
         var closeButtonArr = currentCard.getElementsByClassName("close-button");
+
+        this.handleCardTabbing(eve, closeButtonArr);
+    }
+
+    handleCardTabbing(eve, closeButtonArr)
+    {
         const keyChecker = getPressedKeyStatus(eve);
 
         if (closeButtonArr && closeButtonArr[0] )
@@ -100,57 +122,66 @@ function SearchResults(props)
         }
     }
 
-    var cards = "";
+    render()
+    {
+        var cards = "";
 
-    if (props.cards && props.cards.length > 0)
-    {
-       cards = props.cards.map((card, index) =>
-           <li key={index}>
-               <div className="matched-card-name" id={"matchedCardName" + index} data={index} tabIndex="0"
-                    onClick={(eve) => openCardOverlay(index)}>{card.name}</div>
-               <div className="card-overlay" id={"cardOverlay" + index}>
-                    <div className="close-button" tabIndex="0" data={index}
-                         onClick={(eve) => closeCardOverlay(index)}>
-                        <span className="close-icon" aria-label="close button" role="button">&#8855;</span>
-                    </div>
-                    <Card
-                     index={index}
-                     url={card.imageUrl}
-                     name={card.name}
-                     type={card.type}
-                     set={card.set.name}
-                     rules={card.text}/>
-               </div>
-           </li>
-       );
-    }
+        if (this.props.cards && this.props.cards.length > 0)
+        {
+           cards = this.props.cards.map((card, index) =>
+               <li key={index}>
+                   <div className="matched-card-name" id={"matchedCardName" + index}
+                        data-testid={"matchedCardName" + index}
+                        data={index} tabIndex="0"
+                        onClick={(eve) => this.openCardOverlay(index)}>{card.name}</div>
+                   <div className="card-overlay" id={"cardOverlay" + index}
+                                        data-testid={"cardOverlay" + index}>
+                        <div className="close-button" tabIndex="0" data={index}
+                             id={"closeCardOverlay" + index}
+                             data-testid={"closeCardOverlay" + index}
+                             onClick={(eve) => this.closeCardOverlay(index)}>
+                            <span className="close-icon" aria-label="close button" role="button">&#8855;</span>
+                        </div>
+                        <Card
+                         index={index}
+                         url={card.imageUrl}
+                         name={card.name}
+                         type={card.type}
+                         set={card.set.name}
+                         rules={card.text}/>
+                   </div>
+               </li>
+           );
+        }
 
-    var message = "Click on any card name to display the card.";
+        var message = "Click on any card name to display the card.";
 
-    if (props.count === 0)
-    {
-        message = "No card names were found that matched the search text.";
-    }
-    else if (props.count >= 10)
-    {
-        message = "The search text matched " + props.count +
-           " card names. No more than 10 matches will be returned. " + message;
-    }
-    else if (props.count === 1)
-    {
-        message = "The search text matched " + props.count + " card name.  Click on the card name to display the card.";
-    }
-    else
-    {
-        message = "The search text matched " + props.count + " card names. " + message;
-    }
+        if (this.props.count === 0)
+        {
+            message = "No card names were found that matched the search text.";
+        }
+        else if (this.props.count >= 10)
+        {
+            message = "The search text matched " + this.props.count +
+               " card names. No more than 10 matches will be returned. " + message;
+        }
+        else if (this.props.count === 1)
+        {
+            message = "The search text matched " + this.props.count + " card name.  Click on the card name to display the card.";
+        }
+        else
+        {
+            message = "The search text matched " + this.props.count + " card names. " + message;
+        }
 
-    return (
-        <div>
-            <div id="search-results" tabIndex="0">{message}</div>
-            <ul id="matchedCardList">{cards}</ul>
-        </div>
-    );
+        return (
+            <div>
+                <div id="search-results" tabIndex="0"
+                      data-testid="search-results">{message}</div>
+                <ul id="matchedCardList" data-testid="matchedCardList">{cards}</ul>
+            </div>
+        );
+    }
 }
 
 export default SearchResults;

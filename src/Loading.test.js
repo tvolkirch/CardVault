@@ -6,7 +6,7 @@ import Loading from "./Loading";
 it("Consistently renders the spinner", () => {
 
    const spinner = renderer
-      .create(<Loading bottom={100} right={25} />)
+      .create(<Loading top={25} left={100} bottom={100} right={25} />)
       .toJSON();
 
    expect(spinner).toMatchSnapshot();

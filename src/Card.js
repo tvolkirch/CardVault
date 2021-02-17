@@ -6,8 +6,8 @@ function Card(props)
 {    
    return (
       <div className="flex-card-wrapper">
-         <div className="card-content">
-            <img className="card-image" src={props.url} tabIndex="0"
+         <div className="card-content" tabIndex="0">
+            <img className="card-image" src={props.url}
                alt={"Elder Scrolls Card: " + props.name}/>
          </div>
          <div className="card-content card-text" data={props.index} tabIndex="0">
